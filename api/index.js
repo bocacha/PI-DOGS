@@ -21,6 +21,7 @@ const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const errorHandler = require('./src/utils/middlewares/errorHandler');
 const setHeaders = require('./src/utils/middlewares/setHeaders');
+
 const PORT = 3001;
 //const {PORT} = require('./src/utils/config');
 const routes = require('./src/routes/index');
