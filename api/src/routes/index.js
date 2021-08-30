@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { Dogs,Temperametos } = require('../db.js');
+const { Dogs,Temperamentos } = require('../db.js');
 const fetch = require("node-fetch");
 const {API_KEY}=process.env;
 // Importar todos los routers;
@@ -12,11 +12,13 @@ const router = Router();
 var id=0;
 
 router.post('/dogs', async (req, res)=>{
-    const{name,weight,height,life,image}=req.body;
+    const{name,weight,height,life,temperament,image}=req.body;
     try{
         let newDog = await Dogs.create({
-            id: ++id,name,weight,height,life,image
+            //id: id++,
+            name,weight,height,life,temperament,image
         })
+        res.json(newDog);
     await newDog.setTemperamentos(nameT)
     }catch(error){
         res.status(500).send(error);
@@ -31,21 +33,21 @@ router.get('/dogs', async (req, res,next)=>{
         .then( async json => {
             let dog = await Dogs.findAll({
                 include:[{
-                    model: Temperametos,
+                    model: Temperamentos,
                     required: true
                 }]
             });
-            dog.forEach(dato =>{
-                if(dato.dataValues.name.includes(name)) {
-                    let temperament = dato.dataValues.temperamentos.map(temp => {
+            dog.forEach(data =>{
+                if(data.dataValues.name.includes(name)) {
+                    let temperament = data.dataValues.temperamentos.map(temp => {
                     return temp.dataValues.nameT;
                     })
-                    dato.dataValues.temperamentos = temperament[0];
-                    json.push(dato.dataValues) 
+                    data.dataValues.temperamentos = temperament[0];
+                    json.push(data.dataValues) 
                 }
             });
             if(json.length > 0){
-                let razaEnc =[];
+                let dogFinded =[];
                 for(let i = 0; i < json.length;i++){
                     let raza1={
                         id: json[i].id,
@@ -54,16 +56,17 @@ router.get('/dogs', async (req, res,next)=>{
                         "https://mudfeed.com/wp-content/uploads/2021/05/Dogecoin-2-1200x640.jpg",
                         temperament: json[i].temperament || json[i].temperamentos
                     }
-                    razaEnc.push(raza1);
+                    dogFinded.push(raza1);
                 }
-                res.json(razaEnc);
+                res.json(dogFinded);
             }
         })
     }else{
         fetch(`https://api.thedogapi.com/v1/breeds/?api_key=${API_KEY}`)
         .then(data => data.json())
         .then(async json => {
-            let razasCr = await Razas.findAll({
+            //let razasCr = await Razas.findAll({
+            let razasCr = await Dogs.findAll({
                 include: Temperamentos
             });
             razasCr.forEach(dato => {
@@ -74,12 +77,12 @@ router.get('/dogs', async (req, res,next)=>{
                     json.push(dato.dataValues)
             });
     
-            let raza2 = json.map(dato => {
+            let raza2 = json.map(data => {
                 return {
-                    id: dato.id,
-                    img: dato.image && dato.image.url || "https://mudfeed.com/wp-content/uploads/2021/05/Dogecoin-2-1200x640.jpg",
-                    name: dato.name,
-                    temperament: dato.temperament || dato.temperamentos
+                    id: data.id,
+                    img: data.image && data.image.url || "https://mudfeed.com/wp-content/uploads/2021/05/Dogecoin-2-1200x640.jpg",
+                    name: data.name,
+                    temperament: data.temperament || data.temperamentos
                 }
             });
     
@@ -149,7 +152,7 @@ fetch(`https://api.thedogapi.com/v1/breeds/?api_key=${API_KEY}`)
             temps?.forEach(t => {
                 if (!temp.find(tp => tp.name === t)) {
                     temp.push({ name: t });
-                    console.log(temp)
+                    //console.log(temp)
                 }
             });
         })
@@ -169,7 +172,7 @@ fetch(`https://api.thedogapi.com/v1/breeds/?api_key=${API_KEY}`)
 router.get('/temperament', async function(req, res){
     
     await Temperamentos.findAll()
-            .then(result => res.json(result))
+    .then(result => res.json(result))
 })
 
 module.exports = router;
