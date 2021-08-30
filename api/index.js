@@ -19,26 +19,30 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const errorHandler = require('./src/utils/middlewares/errorHandler');
-const setHeaders = require('./src/utils/middlewares/setHeaders');
+//const routes = require('./src/routes/index');
+//const errorHandler = require('./src/utils/middlewares/errorHandler');
+//const setHeaders = require('./src/utils/middlewares/setHeaders');
 
+//const { conn } = require('./src/models/Index');
 const PORT = 3001;
 //const {PORT} = require('./src/utils/config');
-const routes = require('./src/routes/index');
+
+//server.use(setHeaders);
+//server.use('/api', routes);
+//server.use(errorHandler);
+
 // Syncing all the models at once.
 
- server.get('/', (req, res)=>{
-   res.send('ARF! , ARF!');
- });
+// server.get('/', (req, res)=>{
+//   res.send('ARF! , ARF!');
+// });
 
- server.use(setHeaders);
- server.use('/api', routes);
- server.use(errorHandler);
+
 //https://api.thedogapi.com/v1/breeds?api_key={4fcbadf3-8a00-4d15-b2fa-fed2c2958b7b}
 
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: true }).then(() => { // borra la bd y la crea de nuevo
+  console.log('Base de datos conectada!');
   server.listen(PORT, () => {
-    //console.log('%s listening at 3001'); // eslint-disable-line no-console
     console.log(`SERVER listening at port:${PORT}`);
   });
 });
