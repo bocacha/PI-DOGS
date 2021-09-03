@@ -40,7 +40,7 @@ const PORT = 3001;
 
 //https://api.thedogapi.com/v1/breeds?api_key={4fcbadf3-8a00-4d15-b2fa-fed2c2958b7b}
 
-conn.sync({ force: true }).then(() => { // borra la bd y la crea de nuevo
+conn.sync({ force: false }).then(() => { // borra la bd y la crea de nuevo
   console.log('Base de datos conectada!');
   server.listen(PORT, () => {
     console.log(`SERVER listening at port:${PORT}`);

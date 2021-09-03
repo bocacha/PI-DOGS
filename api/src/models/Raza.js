@@ -29,9 +29,9 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     // temperament:{
-    //   type: D.STRING,
-    //   allowNull: false
-    // },
+    //    type: D.STRING,
+    //    allowNull: false
+    //  },
     image: {
       type: D.STRING,
       allowNull: false

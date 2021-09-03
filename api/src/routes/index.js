@@ -95,12 +95,13 @@ router.post('/razes', async (req, res) =>{
         image,
         createdInDB,
     })
-    let temperamentoDb = await Temperamento.findAll({ 
-        where: { name: temperaments}
-    })
+     let temperamentoDb = await Temperamento.findAll({ 
+         where: { name: temperaments}
+     })
     razeCreated.addTemperamento(temperamentoDb)
     res.send('Raze created successfully')
 });
+
 
 router.get('/razes/:id', async (req, res) =>{
     const id = req.params.id;

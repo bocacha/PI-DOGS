@@ -22,10 +22,40 @@ function rootReducer(state = initialState, action){
                 temperaments: action.payload
 
             }
-        case 'FILTER_BY_TEMP':
-            const allRazes = state.allRazes
-            const razesFiltered = allRazes.filter(el => el.temperament.includes(action.payload))
+        case 'ORDER_BY_NAME':
+            let sortedArr = action.payload ==='asc'?
+            state.razes.sort(function(a,b) {
+                if (a.name > b.name){
+                    return 1;
+                }
+                if (b.name > a.name){
+                    return -1;
+                }
+                return 0;
+            }) :
+            state.razes.sort(function(a,b){
+                if (a.name > b.name){
+                    return -1;
+                }
+                if (b.name > a.name){
+                    return 1;
+                }
+                return 0;
+            })
             return {
+                ...state,
+                razes: sortedArr
+            }
+        case 'GET_RAZES_NAME':
+            return {
+                ...state,
+                razes: action.payload
+            }
+        case 'FILTER_BY_TEMP':
+            var chainOfTemps;
+            const allRazes = state.allRazes
+            const razesFiltered = allRazes.filter(el => el.temperaments.includes(action.payload))
+            return{
                 ...state,
                 razes: razesFiltered
             }
@@ -34,7 +64,7 @@ function rootReducer(state = initialState, action){
             const createdFilter = action.payload ==='created'? allRazes2.filter(el =>el.createdInDb): allRazes2.filter(el =>!el.createdInDb)
             return{
                 ...state,
-                razes: action.payload ==='all'? state.allRazes :createdFilter
+                razes: createdFilter
             }
 
         

@@ -1,7 +1,7 @@
 import React  from 'react';
 import { useState,useEffect} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
-import { getRazes,filterRazesByTemp,getTemperaments } from '../../actions'
+import { getRazes,orderByName,filterRazesByTemp,getTemperaments,filterCreated } from '../../actions'
 import {Link} from 'react-router-dom';
 import Card from '../Card';
 import Paginate from '../Paginate';
@@ -12,6 +12,7 @@ export default function Home(){
     const dispatch = useDispatch();
     const allRazes = useSelector((state) => state.razes);
     const allTemperaments = useSelector((state) =>state.temperaments);
+    const [order,setOrder] = useState('');
     const [currentPage,setCurrentPage] = useState(1);
     const [razesPerPage,setRazesPerPage]=useState(8);
     const indexLastRaze = currentPage * razesPerPage;
@@ -29,15 +30,26 @@ export default function Home(){
         dispatch(getRazes());
         dispatch(getTemperaments());
     },[dispatch]);
-
+    //actualiza el listado
     function handleClick(e){
         e.preventDefault();
         dispatch(getRazes());
     }
-
+    //ordena ASC / DES
+    function handleSort(e){
+        e.preventDefault();
+        dispatch(orderByName(e.target.value));
+        setCurrentPage(1);
+        setOrder(`Ordered ${e.target.value}`);
+    }
+    //No funciona filtro por temperamento
     function handleFilterTemp(e){
         e.preventDefault();
         dispatch(filterRazesByTemp(e.target.value));
+    }
+    //Filtro por origen de datos
+    function handleFilterCreated(e){
+        dispatch(filterCreated(e.target.value))
     }
     
     return (
@@ -46,14 +58,14 @@ export default function Home(){
             <div className={style.areaButtons}>
                 <h1>Dogs Parade!</h1>
                                 
-                <button onClick={e => {handleClick(e)}}>Load Dogs</button>
+                <button className={style.order} onClick={e => {handleClick(e)}}>Refresh Razes</button>
 
-                <div className={style.order}>
-                    <option value="asc">Upwward</option>
+                <select className={style.order} onChange={e =>{handleSort(e)}}>
+                    <option value="asc">Upward</option>
                     <option value="des">Falling</option>
-                </div>
+                </select>
 
-                <select onChange={e =>{handleFilterTemp(e)}}>
+                <select className={style.order} onChange={e =>{handleFilterTemp(e)}}>
                     <option value="">Choose temperament :</option>
                         {
                             allTemperaments.map((temp) =>(                                
@@ -62,13 +74,14 @@ export default function Home(){
                         }
                 </select>
 
-                <select>s
+                <select className={style.order} onChange={e =>{handleFilterCreated(e)}}>
                     <option value="">View from...</option>
                     <option value="created">You own!</option>
                     <option value="api">Api dogs</option>
                     <option value="all">All of them</option>    
                 </select> 
-                <Link className={style.link} to= '/create_dog'>Create your own!</Link>
+                <Link className={style.order} to='/create_dog'>Create your own!</Link>
+                
             </div> 
         </div>
         <div className={style.container}>            

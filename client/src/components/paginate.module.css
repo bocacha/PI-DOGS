@@ -4,15 +4,15 @@
     
 }
 .number{
-    display:flex;
-    align-items: center;
-    justify-content:space-evenly;
+    
+    
     padding-left: 10px;
     padding-right: 10px;
+    
 }
 .pagination{
     display:flex;
-    background-color:burlywood;
-    justify-content:space-around;
+    
+    
     font-size: 30px;
 }
