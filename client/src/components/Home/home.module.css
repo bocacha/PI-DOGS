@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Stick&display=swap');
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+    color:burlywood;
+}
+.text{
+    /* width: 50%;
+    color: white; */
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+.areaButtons{
+    display:flex;
+    align-items: center;
+    justify-content:space-around;
+    color:burlywood;
+}
+.cardsContainer{
+    display:flex;
+}
+.order{
+    border: 1px solid burlywood;
+    padding: 5px;
+}
+.button{
+    background-color: burlywood;
+}
+.pagContainer{
+    display:flex;
+    justify-content: space-around;
+}
+

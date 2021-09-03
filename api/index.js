@@ -20,16 +20,16 @@
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 //const routes = require('./src/routes/index');
-//const errorHandler = require('./src/utils/middlewares/errorHandler');
-//const setHeaders = require('./src/utils/middlewares/setHeaders');
+// const errorHandler = require('./src/utils/middlewares/errorHandler');
+// const setHeaders = require('./src/utils/middlewares/setHeaders');
 
 //const { conn } = require('./src/models/Index');
 const PORT = 3001;
 //const {PORT} = require('./src/utils/config');
 
-//server.use(setHeaders);
-//server.use('/api', routes);
-//server.use(errorHandler);
+// server.use(setHeaders);
+// server.use('/api', routes);
+// server.use(errorHandler);
 
 // Syncing all the models at once.
 
