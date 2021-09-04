@@ -17,6 +17,7 @@ export default function Paginate({razesPerPage,allRazes,paginate}){
                     return (
                         <div className={style.number} key={number}>
                             <p onClick={() => paginate(number)}>{number}</p>
+                            
                         </div>
                     )
                     

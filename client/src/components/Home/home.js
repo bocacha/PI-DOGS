@@ -19,17 +19,15 @@ export default function Home(){
     const indexFirstRaze = indexLastRaze - razesPerPage;
     const currentRazes = allRazes.slice(indexFirstRaze,indexLastRaze);
 
-    
-
     const paginate = (pageNumber) =>{
         setCurrentPage(pageNumber);
     }
-
 
     useEffect (() =>{
         dispatch(getRazes());
         dispatch(getTemperaments());
     },[dispatch]);
+
     //actualiza el listado
     function handleClick(e){
         e.preventDefault();
@@ -45,6 +43,7 @@ export default function Home(){
     //No funciona filtro por temperamento
     function handleFilterTemp(e){
         e.preventDefault();
+        alert(e.target.value);
         dispatch(filterRazesByTemp(e.target.value));
     }
     //Filtro por origen de datos
@@ -58,11 +57,12 @@ export default function Home(){
             <div className={style.areaButtons}>
                 <h1>Dogs Parade!</h1>
                                 
-                <button className={style.order} onClick={e => {handleClick(e)}}>Refresh Razes</button>
+                <button className={style.order} onClick={e => {handleClick(e)}}>Search by name...</button>
 
                 <select className={style.order} onChange={e =>{handleSort(e)}}>
-                    <option value="asc">Upward</option>
-                    <option value="des">Falling</option>
+                <option value="">Order them by:</option>
+                    <option value="asc">Upward!</option>
+                    <option value="des">Falling!</option>
                 </select>
 
                 <select className={style.order} onChange={e =>{handleFilterTemp(e)}}>
@@ -83,12 +83,13 @@ export default function Home(){
                 <Link className={style.order} to='/create_dog'>Create your own!</Link>
                 
             </div> 
+            <hr />
         </div>
         <div className={style.container}>            
             {currentRazes?.map( (el) =>{
                 return(
                     <div className={style.cardsContainer} key={el.id}>
-                        <Link to={"/home/" }>
+                        <Link to={"/home/" }className={style.link}>
                             <Card name={el.name} image={el.image} weight={el.weight} temperaments={el.temperaments} />
                         </Link>
                     </div>

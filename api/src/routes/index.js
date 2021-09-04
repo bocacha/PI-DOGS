@@ -75,32 +75,61 @@ router.get("/temperament", async (req, res) => {
     const allTemperaments = await Temperamento.findAll();
     res.send(allTemperaments);
 });
-
-router.post('/razes', async (req, res) =>{
+router.post("/razes", async (req, res) => {
+    // todo esto llega por body
     let { 
-      name,
-      weight,
-      height,
-      life,
-      image,
-      temperaments,
-      createdInDB,
-    } = req.body
-
-    const razeCreated = await Raza.create({
+              name,
+              weight,
+              height,
+              life,
+              image,
+              temperaments,
+              createdInDb,
+            } = req.body
+    // no le paso temperament, se lo hago a parte
+    console.log(req.body);
+    try {
+      let razeCreated = await Raza.create({
         name,
         weight,
         height,
         life,
         image,
-        createdInDB,
-    })
-     let temperamentoDb = await Temperamento.findAll({ 
-         where: { name: temperaments}
-     })
-    razeCreated.addTemperamento(temperamentoDb)
-    res.send('Raze created successfully')
-});
+        createdInDb,
+      });
+      // se la encuentro a los temperament que busque en la base de datos todas las que coincidan con las de body
+      await razeCreated.addTemperamento(temperaments)
+      // let temperamentDb = await dogCreated.setTemperaments(temperaments)
+      res.send("Your raze has been created!");
+    } catch (error) {
+      console.log(error)
+    }
+  });
+// router.post('/razes', async (req, res) =>{
+//     let { 
+//       name,
+//       weight,
+//       height,
+//       life,
+//       image,
+//       temperaments,
+//       createdInDB,
+//     } = req.body
+
+//     const razeCreated = await Raza.create({
+//         name,
+//         weight,
+//         height,
+//         life,
+//         image,
+//         createdInDB,
+//     })
+//      let temperamentoDb = await Temperamento.findAll({ 
+//          where: { name: temperaments}
+//      })
+//     razeCreated.addTemperamento(temperamentoDb)
+//     res.send('Raze created successfully')
+// });
 
 
 router.get('/razes/:id', async (req, res) =>{

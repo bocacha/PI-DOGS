@@ -52,12 +52,16 @@ function rootReducer(state = initialState, action){
                 razes: action.payload
             }
         case 'FILTER_BY_TEMP':
-            var chainOfTemps;
-            const allRazes = state.allRazes
-            const razesFiltered = allRazes.filter(el => el.temperaments.includes(action.payload))
+            // const allRazes = state.allRazes
+            // const razesFiltered = allRazes.filter(el => {
+                
+            //     let arrayTemp = el.temperament.split(', ')
+            //     arrayTemp.includes(action.payload)
+            const allRazes = state.allRazes  
+            const razesFiltered=allRazes.filter(el => el.temperaments?.split(', ').includes(action.payload)) 
             return{
                 ...state,
-                razes: razesFiltered
+                allRazes: razesFiltered
             }
         case 'FILTER_CREATED':
             const allRazes2 = state.allRazes
@@ -71,45 +75,5 @@ function rootReducer(state = initialState, action){
         default : return state
     }
 }
-    // if(action.type === GET_RAZA_ALL) {
-    //     return {
-    //         ...state,
-    //         razas : action.payload
-    //     }
-    // }
 
-    // if(action.type === GET_RAZA_DETAIL) {
-    //     return {
-    //         ...state,
-    //         razasDetail : action.payload
-    //     }
-    // }
-
-    // if(action.type === GET_RAZA) {
-    //     return {
-    //         ...state,
-    //         razas : action.payload
-    //     }
-    // }
-
-
-
-    // if(action.type === GET_TEMPERAMENTO) {
-    //     return {
-    //         ...state,
-    //         temperamento : action.payload
-    //     }
-    // }
-
-
-    // if(action.type === SORT_RAZA) {
-    //     return {
-    //         ...state,
-    //         razas : action.payload
-    //     }
-    // }
-
-//     return state;
-// }
-
- export default rootReducer;
+export default rootReducer;

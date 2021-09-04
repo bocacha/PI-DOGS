@@ -2,15 +2,11 @@
 /* font-family: 'Open Sans', sans-serif; */
 
 header{
-    background: #FFE000;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #799F0C, #FFE000);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #799F0C, #FFE000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    height: auto;
-    
+    background:darkslategrey;  /* fallback for old browsers */
+    height: auto;    
     width: 100%;
+    overflow: hidden;
 }
-
-
 .container{
     width:95%;
     max-width: 1200px;
@@ -29,8 +25,7 @@ header{
 }
 
 .text{
-    width: 50%;
-    color: white;
+    color:burlywood;
     font-family: 'Open Sans', sans-serif;
     text-align: center;
 }
@@ -43,10 +38,10 @@ header{
 .text a{
     text-decoration: none;
     display: inline-block;
-    color: white;
+    color: burlywood;
     font-weight: 300;
     margin-top: 20px;
-    border: 1px solid white;
+    border: 3px solid burlywood;
     width:150px;
     border-radius: 3px;
     text-align: center;
