@@ -7,19 +7,17 @@ import style from './details.module.css';
 
 
 function Details(props) {
+  const id = parseInt(props.match.params.id);
+  //alert(id);
   const dispatch = useDispatch();
   
-  
-  
-  //dispatch(getRazesId(id));
-  
- 
-  useEffect(() => {
-  const id = props.match.params.id;
-  dispatch(getRazesId(id));
-  });
-  
   const details = useSelector((state) => state.razasDetail);
+  useEffect(() => {
+  dispatch(getRazesId(id));
+  },[dispatch,id]);
+  
+  
+  //alert(details.name)
   return (
     
     <div className={style.wc}>
@@ -28,12 +26,12 @@ function Details(props) {
         <div className={style.card_container}>
           <div className={style.header}> 
          
-            <img src={details.img} className={style.imagen} width="400" height="300" alt="Img not found"/>
+            <img src={details.imgage} className={style.imagen} width="400" height="300" alt="Img not found"/>
           
             <h2>
               {details.name}
             </h2>
-            <h4 className={style.text_white}>{details.temperament}</h4>
+            <h4 className={style.text_white}>{details.temperaments}</h4>
           </div>
           <div className={style.description}>
             <p className={style.wc}>
@@ -56,6 +54,7 @@ function Details(props) {
         </div>
       </div>
     </div>
+    
   )
 };
 
