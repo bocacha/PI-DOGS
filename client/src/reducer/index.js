@@ -3,7 +3,7 @@
 const initialState = { 
     razes : [],
     allRazes:[],
-    // razasDetail : {},
+    razasDetail : {},
     temperaments : []
    
 }
@@ -51,17 +51,20 @@ function rootReducer(state = initialState, action){
                 ...state,
                 razes: action.payload
             }
+        case 'GET_RAZES_ID':
+            return {
+                ...state,
+                razasDetail: action.payload
+
+            }
         case 'FILTER_BY_TEMP':
-            // const allRazes = state.allRazes
-            // const razesFiltered = allRazes.filter(el => {
-                
-            //     let arrayTemp = el.temperament.split(', ')
-            //     arrayTemp.includes(action.payload)
-            const allRazes = state.allRazes  
-            const razesFiltered=allRazes.filter(el => el.temperaments?.split(', ').includes(action.payload)) 
+            const allRazes = state.allRazes 
+            const regExp = /\s*,\s*/; 
+            const razesFiltered=allRazes.filter(el => el.temperaments?.split(regExp).includes(action.payload)) 
+            console.log(razesFiltered)
             return{
                 ...state,
-                allRazes: razesFiltered
+                razes: razesFiltered
             }
         case 'FILTER_CREATED':
             const allRazes2 = state.allRazes

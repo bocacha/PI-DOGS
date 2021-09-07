@@ -1,19 +1,3 @@
-
-
-// export function filtroTemp(razaActual, temperamento){
-//     let filtro = [...razaActual];
-//     filtro = filtro.filter(actual =>{
-//         if(actual.temperament){
-//             let razaTemp = actual.temperament.split(', ')
-//             return razaTemp.includes(temperamento);
-//         }else{
-//             return false
-//         }
-//     })
-//     return function(dispatch){
-//         dispatch({type:SORT_RAZA, payload: filtro})
-//     }
-// }
 import axios from 'axios';
 
 export function getRazes (){
@@ -37,12 +21,26 @@ export function getTemperaments (){
     }
 }
 
-export function getRazeName(name){
+export function getRazesName(name){
     return async function(dispatch){
         try{
-            var json = await axios.get('http://localhost:3001/razes'+ name);
+            var json = await axios.get('http://localhost:3001/razes?name='+ name);
             return dispatch({
                 type:'GET_RAZES_NAME', 
+                payload: json.data
+            })
+        } catch (error){
+            console.log(error)
+        }
+    }
+}
+
+export function getRazesId(id){
+    return async function(dispatch){
+        try{
+            var json = await axios.get('http://localhost:3001/razes/' + id);
+            return dispatch({
+                type:'GET_RAZES_ID', 
                 payload: json.data
             })
         } catch (error){

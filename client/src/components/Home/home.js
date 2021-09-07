@@ -1,9 +1,11 @@
 import React  from 'react';
 import { useState,useEffect} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
-import { getRazes,orderByName,filterRazesByTemp,getTemperaments,filterCreated } from '../../actions'
+import { getRazes,getRazesName,orderByName,filterRazesByTemp,getTemperaments,filterCreated } from '../../actions'
 import {Link} from 'react-router-dom';
 import Card from '../Card';
+import Nav from '../Nav/Nav';
+
 import Paginate from '../Paginate';
 import style from './home.module.css'
 
@@ -12,8 +14,11 @@ export default function Home(){
     const dispatch = useDispatch();
     const allRazes = useSelector((state) => state.razes);
     const allTemperaments = useSelector((state) =>state.temperaments);
+    
+    // eslint-disable-next-line
     const [order,setOrder] = useState('');
     const [currentPage,setCurrentPage] = useState(1);
+    // eslint-disable-next-line
     const [razesPerPage,setRazesPerPage]=useState(8);
     const indexLastRaze = currentPage * razesPerPage;
     const indexFirstRaze = indexLastRaze - razesPerPage;
@@ -33,40 +38,77 @@ export default function Home(){
         e.preventDefault();
         dispatch(getRazes());
     }
-    //ordena ASC / DES
+    //Filtro ASC / DES
     function handleSort(e){
         e.preventDefault();
         dispatch(orderByName(e.target.value));
         setCurrentPage(1);
         setOrder(`Ordered ${e.target.value}`);
     }
-    //No funciona filtro por temperamento
+    //Filtro por peso
+    function handleWeight(e){
+        e.preventDefault();
+
+    }
+    //Filtro por temperamento
     function handleFilterTemp(e){
         e.preventDefault();
-        alert(e.target.value);
         dispatch(filterRazesByTemp(e.target.value));
     }
     //Filtro por origen de datos
-    function handleFilterCreated(e){
+    function handleFilterCreated(e){        
         dispatch(filterCreated(e.target.value))
     }
+    //Busqueda por nombre
+    const [input,setInput]=useState({
+        raza:" ",
+    });
+    function handleInput(e){
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value           
+        })
+    }    
+    function handleDispatch(e){
+        e.preventDefault();
+        if(input.raza){
+            alert(input.raza)
+            dispatch(getRazesName(input.raza))
+            
+        }else{
+            alert("Debe ingresar el nombre de la Raza!")
+        }
+    }
     
+
     return (
         <>
-        <div>
-            <div className={style.areaButtons}>
-                <h1>Dogs Parade!</h1>
-                                
-                <button className={style.order} onClick={e => {handleClick(e)}}>Search by name...</button>
+            <div className={style.areaSearch}>                    
+                <p>Dogs Parade!</p>
+                <form onSubmit={handleDispatch}>
+                    <input className={style.order} type="text" autoComplete="off" name="raza"  value={input.raza} placeholder="Search by raze..." onChange={handleInput}/>
+                    <button type="submit" className={style.order} >Search</button>
+                 </form>
+                <Link className={style.order} to='/create_dog'>Create your own!</Link>
+            </div>
 
+            <div className={style.titleFilter}><h3>Filter your Dogs by:</h3></div>
+            
+            <div className={style.areaFilter}>
                 <select className={style.order} onChange={e =>{handleSort(e)}}>
-                <option value="">Order them by:</option>
+                    <option value="">Alphabetic:</option>
                     <option value="asc">Upward!</option>
                     <option value="des">Falling!</option>
                 </select>
 
+                <select className={style.order} onChange={e =>{handleWeight(e)}}>
+                    <option value="">Weight:</option>
+                    <option value="lighter">Ligther</option>
+                    <option value="heavier">Heavier</option>
+                </select>
+
                 <select className={style.order} onChange={e =>{handleFilterTemp(e)}}>
-                    <option value="">Choose temperament :</option>
+                    <option value="">Temperament :</option>
                         {
                             allTemperaments.map((temp) =>(                                
                                 <option key={temp.id} value={temp.name}>{temp.name}</option>
@@ -75,27 +117,27 @@ export default function Home(){
                 </select>
 
                 <select className={style.order} onChange={e =>{handleFilterCreated(e)}}>
-                    <option value="">View from...</option>
+                    <option value="">Source...</option>
                     <option value="created">You own!</option>
                     <option value="api">Api dogs</option>
                     <option value="all">All of them</option>    
                 </select> 
-                <Link className={style.order} to='/create_dog'>Create your own!</Link>
-                
-            </div> 
+                <button className={style.order} onClick={e => {handleClick(e)}}>REFRESH FILTERS!</button>
+            </div>                
+            
             <hr />
-        </div>
+        
         <div className={style.container}>            
             {currentRazes?.map( (el) =>{
-                return(
-                    <div className={style.cardsContainer} key={el.id}>
-                        <Link to={"/home/" }className={style.link}>
-                            <Card name={el.name} image={el.image} weight={el.weight} temperaments={el.temperaments} />
-                        </Link>
-                    </div>
-                );
-            })} 
-            
+                    return(
+                        <div className={style.cardsContainer} key={el.id}>
+                            <Link to={"/details/:id" }className={style.link}>
+                                <Card name={el.name} image={el.image} weight={el.weight} temperaments={el.temperaments} />
+                            </Link>
+                        </div>
+                    );                
+                })
+            }             
         </div>
         <div className={style.pagContainer}>
         <Paginate
@@ -104,11 +146,7 @@ export default function Home(){
                 paginate = {paginate} 
             />   
         </div>
+        <Nav />
         </>
     )
-
-
-
-
-
 }

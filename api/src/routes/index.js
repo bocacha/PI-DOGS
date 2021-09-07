@@ -48,16 +48,17 @@ const getAllRazes = async () => {
 }
 
 router.get('/razes', async (req, res) => {
-    const name = req.query.name;
+    const {name} = req.query;
+    //const name = req.query.name;
     let razesTotal = await getAllRazes();
     if(name){
-        let razeName = await razesTotal.filter(el => el.name.tolowerCase().includes(name.tolowerCase()))
+        let razeName = await razesTotal.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))
         razeName.length ?
         res.status(200).send(razeName) : 
         res.status(404).send('Dog raze not found!');
     }else{
         res.status(200).send(razesTotal);
-    }
+     }
 });
 
 
@@ -66,7 +67,8 @@ router.get("/temperament", async (req, res) => {
       `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
     );
     let temperaments = temperamentApi.data.map((ob) => ob.temperament).toString();
-    temperaments = await temperaments.split(",");
+    const regExp= /\s*,\s*/;
+    temperaments = await temperaments.split(regExp);
     temperaments.forEach((ob) => {
       Temperamento.findOrCreate({
         where: { name: ob },
@@ -75,65 +77,23 @@ router.get("/temperament", async (req, res) => {
     const allTemperaments = await Temperamento.findAll();
     res.send(allTemperaments);
 });
-router.post("/razes", async (req, res) => {
-    // todo esto llega por body
-    let { 
-              name,
-              weight,
-              height,
-              life,
-              image,
-              temperaments,
-              createdInDb,
-            } = req.body
-    // no le paso temperament, se lo hago a parte
-    console.log(req.body);
-    try {
-      let razeCreated = await Raza.create({
-        name,
-        weight,
-        height,
-        life,
-        image,
-        createdInDb,
-      });
-      // se la encuentro a los temperament que busque en la base de datos todas las que coincidan con las de body
-      await razeCreated.addTemperamento(temperaments)
-      // let temperamentDb = await dogCreated.setTemperaments(temperaments)
-      res.send("Your raze has been created!");
-    } catch (error) {
-      console.log(error)
-    }
-  });
-// router.post('/razes', async (req, res) =>{
-//     let { 
-//       name,
-//       weight,
-//       height,
-//       life,
-//       image,
-//       temperaments,
-//       createdInDB,
-//     } = req.body
 
-//     const razeCreated = await Raza.create({
-//         name,
-//         weight,
-//         height,
-//         life,
-//         image,
-//         createdInDB,
-//     })
-//      let temperamentoDb = await Temperamento.findAll({ 
-//          where: { name: temperaments}
-//      })
-//     razeCreated.addTemperamento(temperamentoDb)
-//     res.send('Raze created successfully')
-// });
+router.post("/razes", async (req, res) => {
+  let { name,weight,height,life,image,temperaments,createdInDb,} = req.body
+    
+  try {
+    let razeCreated = await Raza.create({name,weight,height,life,image,createdInDb,});     
+    await razeCreated.addTemperamento(temperaments)
+    res.send("Your raze has been created!");
+  } catch (error) {
+    console.log(error)
+  }
+});
+
 
 
 router.get('/razes/:id', async (req, res) =>{
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
     const razesTotal = await getAllRazes()
     if(id){
         let razeId = await razesTotal.filter(el => el.id ===id)

@@ -1,33 +1,39 @@
-//import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import style from './details.module.css'
-//import { getRazasDetails } from '../../actions/index'
-// ejemplo para cambio
+import {React,useEffect} from 'react';
+import {useDispatch,useSelector} from 'react-redux';
+import {getRazesId} from '../../actions/index';
+import style from './details.module.css';
+
+
 
 
 function Details(props) {
-
-
-// useEffect(() => {
-//   const id = props.match.params.id;
-//   props.getRazasDetails(id)
-//   },[]);
-
-
+  const dispatch = useDispatch();
+  
+  
+  
+  //dispatch(getRazesId(id));
+  
+ 
+  useEffect(() => {
+  const id = props.match.params.id;
+  dispatch(getRazesId(id));
+  });
+  
+  const details = useSelector((state) => state.razasDetail);
   return (
-
+    
     <div className={style.wc}>
 
       <div className={style.container}>
         <div className={style.card_container}>
           <div className={style.header}> 
          
-            <img src={props.estado.img} className={style.imagen} width="400" height="300" alt="Img not found"/>
+            <img src={details.img} className={style.imagen} width="400" height="300" alt="Img not found"/>
           
             <h2>
-              {props.estado.name}
+              {details.name}
             </h2>
-            <h4 className={style.text_white}>{props.estado.temperament}</h4>
+            <h4 className={style.text_white}>{details.temperament}</h4>
           </div>
           <div className={style.description}>
             <p className={style.wc}>
@@ -35,14 +41,14 @@ function Details(props) {
             </p>
 
             <p className={style.text_white}>
-              Height: {props.estado.height}
+              Height: {details.height}
             </p>
             <p className={style.text_white}>
-              Weight: {props.estado.weight}
+              Weight: {details.weight}
             </p>
 
             <p className={style.text_white}>
-              Life span: {props.estado.life_span}
+              Life span: {details.life_span}
             </p>
 
 
@@ -53,18 +59,7 @@ function Details(props) {
   )
 };
 
-function mapStateToProps(state) {
-  return {
-    estado: state.razasDetail
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    //getRazasDetails: id => dispatch(getRazasDetails(id)),
-  }
-}
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Details); 
+export default Details; 
