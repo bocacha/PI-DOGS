@@ -1,7 +1,7 @@
 import React  from 'react';
 import { useState,useEffect} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
-import { getRazes,getRazesName,orderByName,filterRazesByTemp,getTemperaments,filterCreated } from '../../actions'
+import { getRazes,getRazesName,orderByName,filterRazesByTemp,getTemperaments,filterCreated,filterWeigth } from '../../actions'
 import {Link} from 'react-router-dom';
 import Card from '../Card';
 import Nav from '../Nav/Nav';
@@ -48,6 +48,9 @@ export default function Home(){
     //Filtro por peso
     function handleWeight(e){
         e.preventDefault();
+        dispatch(filterWeigth(e.target.value));
+        setCurrentPage(1);
+        setOrder(`Ordered ${e.target.value}`);
 
     }
     //Filtro por temperamento
@@ -103,8 +106,8 @@ export default function Home(){
 
                 <select className={style.order} onChange={e =>{handleWeight(e)}}>
                     <option value="">Weight:</option>
-                    <option value="lighter">Ligther</option>
-                    <option value="heavier">Heavier</option>
+                    <option value="menor">Ligther</option>
+                    <option value="mayor">Heavier</option>
                 </select>
 
                 <select className={style.order} onChange={e =>{handleFilterTemp(e)}}>
@@ -132,7 +135,7 @@ export default function Home(){
                     return(
                         <div className={style.cardsContainer} key={el.id}>
                             <Link to={"/details/" + el.id }className={style.link}>
-                                <Card name={el.name} image={el.image} weight={el.weight} temperaments={el.temperaments} />
+                                <Card name={el.name} image={el.image}height={el.height} life={el.life} weight={el.weight} temperaments={el.temperaments} />
                             </Link>
                         </div>
                     );                

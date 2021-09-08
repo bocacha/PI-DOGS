@@ -2,35 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector,useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import style from './form.module.css';
+import { getTemperaments,postRaze } from '../../actions/index'
 
-import { getTemperaments } from '../../actions/index'
-
-export function validate(input) {
-  let errors = {};
-  if (!input.name) {
-    errors.name = 'Dog name is required';
-  }
-  if (!input.height) {
-    errors.height = 'Height is required';
-  }
-  if (!input.weight) {
-    errors.weight = 'Weight is required';
-  }
-  if (!input.life) {
-    errors.life = 'Life span is required';
-  }
-  if (!input.image) {
-    errors.image = 'Set an image to your Dog';
-  }
-  if (!input.temperaments) {
-    errors.temperaments = 'You must choose 1 temperament at least';
-  }
-  
-  return errors; 
-};
 
 function Form() {
-  const [errors,setErrors]= useState({});
+  
   const valueTemp = useSelector((state) => state.temperaments)
   const dispatch = useDispatch();
 
@@ -41,34 +17,36 @@ function Form() {
     life: "",
     image: "",
     temperaments: "",
-    createdInDb:""
+    createdInDb:"true"
   })
 
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event) { 
     event.preventDefault();
-    window.location.href = "http://localhost:3000/home"
-    await fetch('http://localhost:3001/razes', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(input)
+    dispatch(postRaze(input)); 
+    alert('Your Dog has been created!')         ;
+    console.log(input);
+    setInput({
+      name: "",
+      height: "",
+      weight: "",
+      life: "",
+      image: "",
+      temperaments: "",
+      
     })
 
   }
 
+  
 
   function handleChange(e) {
-    setErrors(validate({
-      ...input,
-      [e.target.name]: e.target.value
-    }));
     setInput({
       ...input,
       [e.target.name]: e.target.value
     })
   }
+  
 
     useEffect(() => {
       dispatch(getTemperaments());
@@ -121,7 +99,7 @@ function Form() {
           <input className={style.order}
           placeholder="Years of Life"
             type="text"
-            name="years"
+            name="life"
             required="required"
             value={input.life}
             onChange={handleChange}
@@ -140,17 +118,20 @@ function Form() {
             onChange={handleChange}
           />
         </div >
-
-        <select className={style.order} name="nameT" value={input.temperaments} onChange={handleChange} required>
-          <option value="">Temperaments</option>
-          {valueTemp && valueTemp.map(e => (
-            <option key={e.id} value={e.id}>{e.temperaments}</option>
-          ))}
+       
+        <select className={style.order} name="nameT"   onChange={handleChange}required>
+          <option value="">Temperaments:</option>
+          {
+            valueTemp.map((e) => (
+              <option key={e.id} value={e.id} >{e.name}</option>
+            ))
+          }
         </select>
+        <p>{input.temperaments}</p>
 
 
         <input type="submit" value="Create Race" />
-        <Link className={style.order} to='/create_dog'>Go Back!</Link>
+        <Link className={style.order} to='/home'>Go Back!</Link>
 
       </form>
     </section>

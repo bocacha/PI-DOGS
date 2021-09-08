@@ -61,32 +61,56 @@ router.get('/razes', async (req, res) => {
      }
 });
 
-
 router.get("/temperament", async (req, res) => {
-    const temperamentApi = await axios.get(
-      `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
-    );
-    let temperaments = temperamentApi.data.map((ob) => ob.temperament).toString();
-    const regExp= /\s*,\s*/;
-    temperaments = await temperaments.split(regExp);
-    temperaments.forEach((ob) => {
-      Temperamento.findOrCreate({
-        where: { name: ob },
-      });
+  const temperamentApi = (await axios.get(
+    `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
+  )).data
+  let temperaments = temperamentApi.map((ob) => ob.temperament);
+  temperaments = temperaments.join().split(',');
+  temperaments = temperaments.map(t => t.trim());
+  temperaments = temperaments.filter(t => t);
+  temperaments = [...new Set(temperaments)].sort();
+  // temperaments = await temperaments.split(regExp);
+  temperaments.forEach((ob) => {
+    Temperamento.findOrCreate({
+      where: { name: ob },
     });
-    const allTemperaments = await Temperamento.findAll();
-    res.send(allTemperaments);
+  });
+  const allTemperaments = await Temperamento.findAll();
+  res.send(allTemperaments);
 });
+// router.get("/temperament", async (req, res) => {
+//     const temperamentApi = await axios.get(
+//       `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
+//     );
+//     let temperaments = temperamentApi.data.map((ob) => ob.temperament).toString();
+//     const regExp= /\s*,\s*/;
+//     temperaments = await temperaments.split(regExp);
+//     temperaments.forEach((ob) => {
+//       Temperamento.findOrCreate({
+//         where: { name: ob },
+//       });
+//     });
+//     const allTemperaments = await Temperamento.findAll();
+//     res.send(allTemperaments);
+// });
 
 router.post("/razes", async (req, res) => {
-  let { name,weight,height,life,image,temperaments,createdInDb,} = req.body
+  let { name,weight,height,life,image,temperamentId,createdInDb,} = req.body
     
   try {
     let razeCreated = await Raza.create({name,weight,height,life,image,createdInDb,});     
-    await razeCreated.addTemperamento(temperaments)
-    res.send("Your raze has been created!");
+    const razeTemperaments = await Temperamento.findAll({
+      were:{
+        id:temperamentId
+      }
+    })
+    await razeCreated.addTemperamento(razeTemperaments)
+    console.log(razeTemperaments);
+    return res.status(201).json(razeCreated);
   } catch (error) {
     console.log(error)
+    res.status(400).send(error);
   }
 });
 

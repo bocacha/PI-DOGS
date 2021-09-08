@@ -59,9 +59,8 @@ function rootReducer(state = initialState, action){
             }
         case 'FILTER_BY_TEMP':
             const allRazes = state.allRazes 
-            const regExp = /\s*,\s*/; 
-            const razesFiltered=allRazes.filter(el => el.temperaments?.split(regExp).includes(action.payload)) 
-            console.log(razesFiltered)
+            const razesFiltered=allRazes.filter(el => el.temperaments?.includes(action.payload)) 
+            //console.log(razesFiltered)
             return{
                 ...state,
                 razes: razesFiltered
@@ -73,8 +72,34 @@ function rootReducer(state = initialState, action){
                 ...state,
                 razes: createdFilter
             }
-
-        
+        case 'FILTER_WEIGTH':
+            let arraySort= action.payload==="mayor"?
+            state.razes.sort(function(a,b){
+                if(parseInt(a.weight.split('-')[1]) > parseInt(b.weight.split('-')[1])){
+                    return -1;
+                }
+                if(parseInt(b.weight.split('-')[1]) > parseInt(a.weight.split('-')[1])){
+                    return 1;
+                }
+                return 0;            
+            })
+            :state.razes.sort(function(a,b){
+                if(parseInt(a.weight.split('-')[0]) > parseInt(b.weight.split('-')[0])){
+                    return 1;
+                }
+                if(parseInt(b.weight.split('-')[0]) > parseInt(a.weight.split('-')[0])){
+                    return -1;
+                }
+                return 0; 
+            });
+            return{
+                ...state,
+                razes:arraySort,
+            };
+        case 'POST_RAZE':
+            return {
+                ...state
+            }
         default : return state
     }
 }

@@ -38,7 +38,8 @@ export function getRazesName(name){
 export function getRazesId(id){
     return async function(dispatch){
         try{
-            var json = await axios.get('http://localhost:3001/razes/' + id);
+            // var json = await axios.get('http://localhost:3001/razes/' + id);
+            var json = await axios.get(`http://localhost:3001/razes/${id}`);
             return dispatch({
                 type:'GET_RAZES_ID', 
                 payload: json.data
@@ -67,5 +68,19 @@ export function filterCreated(payload){
     return{
         type:'FILTER_CREATED',
         payload
+    }
+}
+
+export function filterWeigth(payload){
+    return{
+        type:'FILTER_WEIGTH',
+        payload
+    }
+}
+
+export function postRaze(payload){
+    return async function(){
+        var json = await axios.post('http://localhost:3001/razes',payload);
+        return json;
     }
 }

@@ -17,15 +17,15 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     weight: {
-      type: D.INTEGER,
+      type: D.STRING,
       allowNull: false
     },    
     height: {
-      type: D.INTEGER,
+      type: D.STRING,
       allowNull: false
     },   
     life: {
-      type: D.INTEGER,
+      type: D.STRING,
       allowNull: false
     },
     // temperament:{
