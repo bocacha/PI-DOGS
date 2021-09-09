@@ -134,7 +134,7 @@ export default function Home(){
             {currentRazes?.map( (el) =>{
                     return(
                         <div className={style.cardsContainer} key={el.id}>
-                            <Link to={"/details/" + el.id }className={style.link}>
+                            <Link to={`/razes/${el.id}`  }className={style.link}>
                                 <Card name={el.name} image={el.image}height={el.height} life={el.life} weight={el.weight} temperaments={el.temperaments} />
                             </Link>
                         </div>

@@ -3,7 +3,7 @@
 const initialState = { 
     razes : [],
     allRazes:[],
-    razasDetail : {},
+    razasDetail : [],
     temperaments : []
    
 }

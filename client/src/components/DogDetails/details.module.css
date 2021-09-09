@@ -1,37 +1,38 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,700&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Stick&display=swap');
 .text_white{
-    color:burlywood;
-    font-family: 'Open Sans', sans-serif;
+    color:burlywood;   
     text-align: center;
     padding-top:20px;
     padding-bottom: 20px;
 }
-
 
 .container{
     margin-top: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50vh;
+    height: 70vh;
     border-radius: 20px;
-    font-family: 'Open Sans', sans-serif;
     padding: 20px;
+    color:burlywood; 
 }
 
 .card_container{
-    margin-top:100px;
+    margin-top:70px;
     display: flex;
     width:50%;
     height: auto;
     background: transparent;
     border-radius: 20px;
     box-shadow: 1px 1px 4px 2px rgba(0,0,0, .5);
+    color:burlywood; 
 }
 
 .header{
-    border-right: 1px solid #dddddd;
+    border-right: 1px; 
+    color:burlywood; 
+    box-shadow: 1px 1px  2px rgba(0,0,0, .5);
 }
 
 .description{

@@ -11,7 +11,7 @@ function App() {
     <React.Fragment>
           <Route path="/" exact component={Page}/>
           <Route path="/home" component={Home} />
-          <Route path="/details/:id" component={Details}/>
+          <Route path="/razes/:id" component={Details}/>
           <Route path="/create_dog" component={Form}/>
           {/* <Route path="/crearRaza" component={Form}/> */}
       </React.Fragment>

@@ -16,8 +16,8 @@ function Form() {
     weight: "",
     life: "",
     image: "",
-    temperaments: "",
-    createdInDb:"true"
+    temperament: [],
+    //createdInDb:"true"
   })
 
 
@@ -25,14 +25,14 @@ function Form() {
     event.preventDefault();
     dispatch(postRaze(input)); 
     alert('Your Dog has been created!')         ;
-    console.log(input);
+    // constconsole.log(input);
     setInput({
       name: "",
       height: "",
       weight: "",
       life: "",
       image: "",
-      temperaments: "",
+      temperament: [],
       
     })
 
@@ -46,6 +46,11 @@ function Form() {
       [e.target.name]: e.target.value
     })
   }
+  function handleSelect(e){
+    setInput({
+        ...input, temperament:[...input.temperament, e.target.value ]
+    })
+}
   
 
     useEffect(() => {
@@ -118,8 +123,8 @@ function Form() {
             onChange={handleChange}
           />
         </div >
-       
-        <select className={style.order} name="nameT"   onChange={handleChange}required>
+        {/* name="nameT" */}
+        <select className={style.order}    onChange={handleSelect}required>
           <option value="">Temperaments:</option>
           {
             valueTemp.map((e) => (
@@ -127,7 +132,7 @@ function Form() {
             ))
           }
         </select>
-        <p>{input.temperaments}</p>
+        <ul><li>{input.temperament.map(t => t + ', ')}</li></ul>
 
 
         <input type="submit" value="Create Race" />

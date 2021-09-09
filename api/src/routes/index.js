@@ -67,7 +67,7 @@ router.get("/temperament", async (req, res) => {
   )).data
   let temperaments = temperamentApi.map((ob) => ob.temperament);
   temperaments = temperaments.join().split(',');
-  temperaments = temperaments.map(t => t.trim());
+  // temperaments = temperaments.map(t => t.trim());
   temperaments = temperaments.filter(t => t);
   temperaments = [...new Set(temperaments)].sort();
   // temperaments = await temperaments.split(regExp);
@@ -96,18 +96,19 @@ router.get("/temperament", async (req, res) => {
 // });
 
 router.post("/razes", async (req, res) => {
-  let { name,weight,height,life,image,temperamentId,createdInDb,} = req.body
+  let { name,weight,height,life,image,temperament,createdInDb,} = req.body
     
   try {
     let razeCreated = await Raza.create({name,weight,height,life,image,createdInDb,});     
-    const razeTemperaments = await Temperamento.findAll({
-      were:{
-        id:temperamentId
-      }
-    })
-    await razeCreated.addTemperamento(razeTemperaments)
-    console.log(razeTemperaments);
-    return res.status(201).json(razeCreated);
+    // const razeTemperaments = await Temperamento.findAll({
+    //   were:{
+    //     id:temperamentId
+    //   }
+    // })
+    await razeCreated.addTemperamento(temperament)
+    //console.log(razeTemperaments);
+    //return res.status(201).json(razeCreated);
+    res.send('Raze created!')
   } catch (error) {
     console.log(error)
     res.status(400).send(error);
@@ -117,10 +118,11 @@ router.post("/razes", async (req, res) => {
 
 
 router.get('/razes/:id', async (req, res) =>{
-    const id = parseInt(req.params.id);
+    //const id = parseInt(req.params.id);
+    const id = req.params.id;
     const razesTotal = await getAllRazes()
     if(id){
-        let razeId = await razesTotal.filter(el => el.id ===id)
+        let razeId = await razesTotal.filter(el => el.id ==id)
         razeId.length?
         res.status(200).json(razeId) :
         res.status(400).send('Raze not found');
