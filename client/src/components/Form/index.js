@@ -9,37 +9,49 @@ function Form() {
   
   const valueTemp = useSelector((state) => state.temperaments)
   const dispatch = useDispatch();
-
+  
   const [input, setInput] = useState({
     name: "",
-    height: "",
-    weight: "",
-    life: "",
+    height_min: "",
+    height_max: "",
+    weight_min: "",
+    weight_max: "",
+    life_min: "",
+    life_max: "",
     image: "",
     temperament: [],
+   
     //createdInDb:"true"
   })
-
+  
 
   async function handleSubmit(event) { 
+    const myModel={ 
+      name:input.name,
+      height: input.height_min + " - " + input.height_max,
+      weight:input.weight_min + " - " + input.weight_max,
+      life: input.life_min + " - " + input.life_max,
+      image:input.image,
+      temperament:input.temperament,
+    } 
     event.preventDefault();
-    dispatch(postRaze(input)); 
+    dispatch(postRaze(myModel)); 
     alert('Your Dog has been created!')         ;
-    // constconsole.log(input);
+    //constconsole.log(input);
     setInput({
       name: "",
-      height: "",
-      weight: "",
-      life: "",
+      height_min: "",
+      height_max: "",
+      weight_min: "",
+      weight_max: "",
+      life_min: "",
+      life_max: "",
       image: "",
-      temperament: [],
-      
+      temperament: [],  
     })
 
   }
-
-  
-
+ 
   function handleChange(e) {
     setInput({
       ...input,
@@ -47,20 +59,15 @@ function Form() {
     })
   }
   function handleSelect(e){
+    console.log(input.temperament)
     setInput({
         ...input, temperament:[...input.temperament, e.target.value ]
     })
 }
   
-
-    useEffect(() => {
-      dispatch(getTemperaments());
-    },[dispatch]);
-
-
-  
-
-
+  useEffect(() => {
+    dispatch(getTemperaments());
+  },[dispatch]);
 
   return (
     <section className={style.container}>
@@ -68,7 +75,7 @@ function Form() {
       <form onSubmit={handleSubmit} className={style.formul}>
 
         <div>
-          <input className={style.order}
+          <input className={style.orderLarge}
             placeholder="Name"
             type="text"
             name="name"
@@ -77,44 +84,80 @@ function Form() {
             onChange={handleChange}
           />
         </div>
-
-        <div >
-          <input className={style.order}
-          placeholder="Height"
-            type="text"
-            name="height"
-            required="required"
-            value={input.height}
-            onChange={handleChange}
-          />
+        
+        <div className={style.MinMax}>
+          <p>Input Height values:</p>
+          <div className={style.areaMinMax}>
+            <input className={style.order}
+              placeholder="Min"
+              type="text"
+              name="height_min"
+              required="required"
+              value={input.height_min}
+              onChange={handleChange}
+            />
+            <input className={style.order}
+              placeholder="Max"
+              type="text"
+              name="height_max"
+              required="required"
+              value={input.height_max}
+              onChange={handleChange}
+            />
+          </div>
         </div>
 
-        <div>
-          <input className={style.order}
-          placeholder="Weight"
-            type="text"
-            name="weight"
-            required="required"
-            value={input.weight}
-            onChange={handleChange}
-          />
+        <div className={style.MinMax}>
+          <p>Input Weight values:</p>
+          <div className={style.areaMinMax}>
+            <input className={style.order}
+              placeholder="Min"
+              type="text"
+              name="weight_min"
+              required="required"
+              value={input.weight_min}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <input className={style.order}
+              placeholder="Max"
+              type="text"
+              name="weight_max"
+              required="required"
+              value={input.weight_max}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        
+        <div className={style.MinMax}>
+        <p>Input Life.. values    :</p>
+        <div className={style.areaMinMax}>
+            <input className={style.order}
+              placeholder="Min"
+              type="text"
+              name="life_min"
+              required="required"
+              value={input.life_min}
+               onChange={handleChange}
+            />
+          </div >
+          <div>
+            <input className={style.order}
+              placeholder="Max"
+              type="text"
+              name="life_max"
+              required="required"
+              value={input.life_max}
+              onChange={handleChange}
+            />
+          </div >
         </div>
 
-        <div>
-          <input className={style.order}
-          placeholder="Years of Life"
-            type="text"
-            name="life"
-            required="required"
-            value={input.life}
-            onChange={handleChange}
-          />
-        </div >
-
-
 
         <div>
-          <input className={style.order}
+          <input className={style.orderLarge}
           placeholder="Load image path"
             type="text"
             name="image"
@@ -124,19 +167,21 @@ function Form() {
           />
         </div >
         {/* name="nameT" */}
-        <select className={style.order}    onChange={handleSelect}required>
+        <select className={style.orderLarge}    onChange={handleSelect}required>
           <option value="">Temperaments:</option>
           {
             valueTemp.map((e) => (
-              <option key={e.id} value={e.id} >{e.name}</option>
+              <option key={e.id} value={e.id}>{e.name}</option>
+              
             ))
           }
         </select>
-        <ul><li>{input.temperament.map(t => t + ', ')}</li></ul>
+        {/* <ul><li>{input.temperament.map(t => t + ', ')}</li></ul> */}
+        
 
 
         <input type="submit" value="Create Race" />
-        <Link className={style.order} to='/home'>Go Back!</Link>
+        <Link className={style.order} to='/home'>Back to Home!</Link>
 
       </form>
     </section>

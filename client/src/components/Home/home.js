@@ -77,9 +77,9 @@ export default function Home(){
         if(input.raza){
             alert(input.raza)
             dispatch(getRazesName(input.raza))
-            
+            document.getElementsByName('raza').innerText=" ";
         }else{
-            alert("Debe ingresar el nombre de la Raza!")
+            alert("Raze name is mandatory!")
         }
     }
     
