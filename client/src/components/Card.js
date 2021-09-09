@@ -9,6 +9,7 @@ export default function Card({name,image,weight,temperaments}){
             <img src={image} alt="Img not found" width="240" height="180"  />
             <h4>{weight} Kgs.</h4>
             <h4>{temperaments}</h4>
+           
         </div>
     )
 }

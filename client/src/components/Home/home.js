@@ -135,7 +135,8 @@ export default function Home(){
                     return(
                         <div className={style.cardsContainer} key={el.id}>
                             <Link to={`/razes/${el.id}`  }className={style.link}>
-                                <Card name={el.name} image={el.image}height={el.height} life={el.life} weight={el.weight} temperaments={el.temperaments} />
+                                <Card name={el.name} image={el.image}height={el.height} life={el.life} weight={el.weight} temperaments=
+                                {el.createdInDb?el.temperamentos.map(e => e.name):el.temperaments} />
                             </Link>
                         </div>
                     );                
