@@ -16,10 +16,12 @@
     text-align: center;
 }
 .areaSearch{
+    margin-top:10px;
     display:flex;
     align-items: center;
-    justify-content:space-around;
+    justify-content:space-evenly;
     color:burlywood;
+    position: relative;
 }
 .areaButtons{
     display:flex;
@@ -59,11 +61,24 @@
 .link{
     text-decoration: none;
 }
-.hr{
-    border: 0;
+.linea{
+    /* border: 0;
     height: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); */
+    margin-top: 20px;
+      
+     border: 0; 
+     height: 1px; 
+     background: rgb(129, 129, 129); 
+     opacity: 0.2 
 
+}
+.imagen{
+    width: 200px;
+    float: left;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 

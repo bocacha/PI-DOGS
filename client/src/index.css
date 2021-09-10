@@ -10,6 +10,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* background-image:url('./images/fondo.png') ; */
   background-color: darkslategrey;
+  background-image:url('../../client/src/images/background.png');
 }
 
 code {

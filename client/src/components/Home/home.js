@@ -5,6 +5,7 @@ import { getRazes,getRazesName,orderByName,filterRazesByTemp,getTemperaments,fil
 import {Link} from 'react-router-dom';
 import Card from '../Card';
 import Nav from '../Nav/Nav';
+import dog from '../../images/dog.png'
 
 import Paginate from '../Paginate';
 import style from './home.module.css'
@@ -87,7 +88,10 @@ export default function Home(){
     return (
         <>
             <div className={style.areaSearch}>                    
-                <p>Dogs Parade!</p>
+                {/* <p>Dogs Parade!</p> */}
+                
+                <img className={style.imagen}src={dog} alt="Img not Found" />
+      
                 <form onSubmit={handleDispatch}>
                     <input className={style.order} type="text" autoComplete="off" name="raza"  value={input.raza} placeholder="Search by raze..." onChange={handleInput}/>
                     <button type="submit" className={style.order} >Search</button>
@@ -128,7 +132,7 @@ export default function Home(){
                 <button className={style.order} onClick={e => {handleClick(e)}}>REFRESH FILTERS!</button>
             </div>                
             
-            <hr />
+            <hr className={style.linea} />
         
         <div className={style.container}>            
             {currentRazes?.map( (el) =>{

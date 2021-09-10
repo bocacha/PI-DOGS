@@ -26,31 +26,23 @@ import style from './details.module.css';
       <div className={style.container}>
         <div className={style.card_container}>
 
-          <div className={style.header}> 
-         
+          <div className={style.header}>          
             <h1>{details[0].name}</h1>
             <img src={details[0].image} className={style.imagen} width="400" height="300" alt="Img not found"/>
             <h2 className={style.text_white}>{!details[0].createdInDb ? details[0].temperaments + ' ' : details[0].temperamentos.map(e=> e.name + (','))} </h2>
           </div>
 
           <div className={style.description}>
-            <p className={style.wc}>
-              <strong >Breed Detail</strong>
-            </p>
+            <h2 className={style.wc}>Breed Details:</h2>
 
-            <p className={style.text_white}>
-              Height:     {details[0].height} Cm.
-            </p>
-            <p className={style.text_white}>
-              Weight: {details[0].weight} Kgs.
-            </p>
+            <hr />
 
-            <p className={style.text_white}>
-              Life span: {details[0].life}  
-            </p>
-            
-
-            <Link className={style.order} to='/home'>Go Back!</Link>
+            <h2 className={style.text_white}>Height:{details[0].height} Cm.</h2>
+            <h2 className={style.text_white}>Weight: {details[0].weight} Kgs.</h2>
+            <h2 className={style.text_white}>Life span: {details[0].life} </h2>
+            <div className={style.areaBoton}>
+              <Link className={style.order} to='/home'>Go Back!</Link>
+            </div>
 
           </div>
 

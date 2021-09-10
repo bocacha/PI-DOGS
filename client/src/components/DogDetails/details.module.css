@@ -48,6 +48,7 @@
 .imagen{
     max-width:  300;
     max-height: 300;
+    border-radius: 18px;
 }
 .order{
     border: 3px solid rgb(231, 152, 48);
@@ -55,4 +56,10 @@
     background-color: burlywood;
     border-radius:10px;
     box-shadow: 0 2px 2px rgba(0,0,0,0.5);
+}
+
+.areaBoton{
+    display: flex;
+    align-items: center;
+    justify-content:center;
 }
