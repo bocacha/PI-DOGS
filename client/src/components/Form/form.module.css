@@ -49,3 +49,13 @@
     width: 100%;
     
 }
+.footer{
+    display: flex;
+}
+.danger{
+    color:red;
+    text-decoration:double;
+    text-shadow:1px;
+    background-color:burlywood;
+    border: 3px solid rgb(250, 4, 4);
+}

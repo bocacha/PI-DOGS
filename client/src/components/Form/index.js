@@ -5,11 +5,36 @@ import style from './form.module.css';
 import { getTemperaments,postRaze } from '../../actions/index'
 
 
+
 function Form() {
-  
+  const[errors,setErrors]= useState({name:""});
   const valueTemp = useSelector((state) => state.temperaments)
   const dispatch = useDispatch();
   
+  function validate(input){
+    let errors={};
+   
+    if(parseInt(input.height_min) >= parseInt(input.height_max)){
+      errors.name = 'Initial value cant be greater than final value!'
+    }else{
+      setErrors({name:""});
+    }
+    
+    if(parseInt(input.weight_min) >= parseInt(input.weight_max)){
+      errors.name = 'Initial value cant be greater than final value!'
+    }else{
+      setErrors({name:""});
+    }
+    
+    if(parseInt(input.life_min) >= parseInt(input.life_max)){
+      errors.name = 'Initial value cant be greater than final value!'
+    }else{
+      setErrors({name:""});
+    }
+    
+    return errors;
+  }
+
   const [input, setInput] = useState({
     name: "",
     height_min: "",
@@ -20,12 +45,14 @@ function Form() {
     life_max: "",
     image: "",
     temperament: [],
-   
-    //createdInDb:"true"
   })
   
 
   async function handleSubmit(event) { 
+    // if(errors.name !== ""){
+    //   document.getElementById('form').reset();
+    //   return alert('You have been warned, but attemp to create anyway. Now form will reset!');
+    // }
     const myModel={ 
       name:input.name,
       height: input.height_min + " - " + input.height_max,
@@ -37,7 +64,6 @@ function Form() {
     event.preventDefault();
     dispatch(postRaze(myModel)); 
     alert('Your Dog has been created!')         ;
-    //constconsole.log(input);
     setInput({
       name: "",
       height_min: "",
@@ -49,22 +75,28 @@ function Form() {
       image: "",
       temperament: [],  
     })
+    setErrors({});
 
   }
- 
-  function handleChange(e) {
+
+  
+  function handleSelect(e){  
+    setInput({
+      ...input, temperament:[...input.temperament, +e.target.value ]
+    })  
+  }
+   
+  function handleChange(e) {  
+    setErrors(validate({
+      ...input,
+      [e.target.name]: e.target.value
+    }));
     setInput({
       ...input,
       [e.target.name]: e.target.value
     })
   }
-  function handleSelect(e){
-    console.log(input.temperament)
-    setInput({
-        ...input, temperament:[...input.temperament, e.target.value ]
-    })
-}
-  
+    
   useEffect(() => {
     dispatch(getTemperaments());
   },[dispatch]);
@@ -72,7 +104,7 @@ function Form() {
   return (
     <section className={style.container}>
 
-      <form onSubmit={handleSubmit} className={style.formul}>
+      <form id="form" onSubmit={handleSubmit} className={style.formul}>
 
         <div>
           <input className={style.orderLarge}
@@ -166,22 +198,38 @@ function Form() {
             onChange={handleChange}
           />
         </div >
-        {/* name="nameT" */}
-        <select className={style.orderLarge}    onChange={handleSelect}required>
+        {errors.name && (
+          <h2 className={style.danger}>{errors.name}</h2>
+        )}
+        <select className={style.orderLarge} onChange={handleSelect}
+          value={input.temperament[input.temperament.length - 1]}>
+          <option value="">Temperaments:</option>
+          {valueTemp.map(e => (
+            <option key={e.id} value={e.id}>{e.name}</option>
+          ))}
+        </select>
+        <div style={{color:'burlywood'}}>{[input.temperament.map(i => valueTemp.find( v => v.id === i)?.name + ", ")]}</div>
+        {/* <div>Selected value =
+          {valueTemp.find(
+         v => v.id === input.temperament[input.temperament.length - 1]
+         )?.name
+        }</div> */}
+        {/* <select className={style.orderLarge} onChange={handleSelect}>
           <option value="">Temperaments:</option>
           {
             valueTemp.map((e) => (
-              <option key={e.id} value={e.id}>{e.name}</option>
-              
+              <option  key={e.id} value={e.id}>{e.name}</option>
+                            
             ))
           }
-        </select>
-        {/* <ul><li>{input.temperament.map(t => t + ', ')}</li></ul> */}
-        
+        </select> */}
+       
+        {/* <div id="mostrame"style={{color:'burlywood'}}>Temperaments :</div> */}
 
-
-        <input type="submit" value="Create Race" />
-        <Link className={style.order} to='/home'>Back to Home!</Link>
+        <div className={style.footer}>
+          <input className={style.orderLarge} type="submit" value="Create Race" />
+          <Link className={style.order} to='/home'>Back to Home!</Link>
+        </div>
 
       </form>
     </section>

@@ -17,13 +17,14 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 
 const PORT = 3001;
 
 
-conn.sync({ force: false}).then(() => { // true:borra la bd y la crea de nuevo
+conn.sync({ force: true}).then(() => { // true:borra la bd y la crea de nuevo
   console.log('Base de datos conectada!');
   server.listen(PORT, () => {
     console.log(`SERVER listening at port:${PORT}`);

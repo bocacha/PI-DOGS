@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Stick&display=swap');
 /* font-family: 'Open Sans', sans-serif; */
 
 header{
     background:darkslategrey;  /* fallback for old browsers */
+    background-image:url('../../images/background.png');
     height: auto;    
     width: 100%;
     overflow: hidden;
@@ -38,12 +39,14 @@ header{
 .text a{
     text-decoration: none;
     display: inline-block;
-    color: burlywood;
+    color:darkslategrey;
     font-weight: 300;
     margin-top: 20px;
-    border: 3px solid burlywood;
+    border: 3px solid rgb(231, 152, 48);
     width:150px;
-    border-radius: 3px;
+    border-radius:18px;
+    background-color: burlywood;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
     text-align: center;
     padding: 10px 0;
     font-size: 20px;
@@ -70,6 +73,13 @@ header{
 .style3{
     stroke: none; fill:white;
 }
+.a{
+    
+    padding: 5px;
+    
+    
+}
+
 
 @keyframes moverIzquierda{
     0%{

@@ -76,29 +76,29 @@ export default function Home(){
     function handleDispatch(e){
         e.preventDefault();
         if(input.raza){
-            alert(input.raza)
             dispatch(getRazesName(input.raza))
-            document.getElementsByName('raza').innerText=" ";
+            document.getElementById('form').reset();
         }else{
             alert("Raze name is mandatory!")
         }
+        setInput("");
     }
     
 
     return (
         <>
-            <div className={style.areaSearch}>                    
-                {/* <p>Dogs Parade!</p> */}
-                
+            <div className={style.areaSearch}>                                    
                 <img className={style.imagen}src={dog} alt="Img not Found" />
       
-                <form onSubmit={handleDispatch}>
+                <form id="form" onSubmit={handleDispatch}>
                     <input className={style.order} type="text" autoComplete="off" name="raza"  value={input.raza} placeholder="Search by raze..." onChange={handleInput}/>
                     <button type="submit" className={style.order} >Search</button>
                  </form>
-                <Link className={style.order} to='/create_dog'>Create your own!</Link>
-            </div>
 
+                <Link className={style.order} to='/create_dog'>Create your own!</Link>
+
+            </div>
+            <hr className={style.linea} />
             <div className={style.titleFilter}><h3>Filter your Dogs by:</h3></div>
             
             <div className={style.areaFilter}>
@@ -140,7 +140,7 @@ export default function Home(){
                         <div className={style.cardsContainer} key={el.id}>
                             <Link to={`/razes/${el.id}`  }className={style.link}>
                                 <Card name={el.name} image={el.image}height={el.height} life={el.life} weight={el.weight} temperaments=
-                                {el.createdInDb?el.temperamentos.map(e => e.name):el.temperaments} />
+                                {el.createdInDb?el.temperamentos.map(e => e.name):el.temperaments + ", "} />
                             </Link>
                         </div>
                     );                
