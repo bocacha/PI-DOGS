@@ -118,7 +118,7 @@ function Form() {
         </div>
         
         <div className={style.MinMax}>
-          <p>Input Height values:</p>
+          <p>Height values:</p>
           <div className={style.areaMinMax}>
             <input className={style.order}
               placeholder="Min"
@@ -140,7 +140,7 @@ function Form() {
         </div>
 
         <div className={style.MinMax}>
-          <p>Input Weight values:</p>
+          <p>Weight values:</p>
           <div className={style.areaMinMax}>
             <input className={style.order}
               placeholder="Min"
@@ -164,7 +164,7 @@ function Form() {
         </div>
         
         <div className={style.MinMax}>
-        <p>Input Life.. values    :</p>
+        <p>Life.. values    :</p>
         <div className={style.areaMinMax}>
             <input className={style.order}
               placeholder="Min"
@@ -199,36 +199,20 @@ function Form() {
           />
         </div >
         {errors.name && (
-          <h2 className={style.danger}>{errors.name}</h2>
+          <h4 className={style.danger}>{errors.name}</h4>
         )}
         <select className={style.orderLarge} onChange={handleSelect}
-          value={input.temperament[input.temperament.length - 1]}>
+          value={input.temperament[input.temperament.length - 1]}required>
           <option value="">Temperaments:</option>
           {valueTemp.map(e => (
             <option key={e.id} value={e.id}>{e.name}</option>
           ))}
         </select>
         <div style={{color:'burlywood'}}>{[input.temperament.map(i => valueTemp.find( v => v.id === i)?.name + ", ")]}</div>
-        {/* <div>Selected value =
-          {valueTemp.find(
-         v => v.id === input.temperament[input.temperament.length - 1]
-         )?.name
-        }</div> */}
-        {/* <select className={style.orderLarge} onChange={handleSelect}>
-          <option value="">Temperaments:</option>
-          {
-            valueTemp.map((e) => (
-              <option  key={e.id} value={e.id}>{e.name}</option>
-                            
-            ))
-          }
-        </select> */}
-       
-        {/* <div id="mostrame"style={{color:'burlywood'}}>Temperaments :</div> */}
-
+    
         <div className={style.footer}>
           <input className={style.orderLarge} type="submit" value="Create Race" />
-          <Link className={style.order} to='/home'>Back to Home!</Link>
+          <Link className={style.order} to='/home'>Home!</Link>
         </div>
 
       </form>

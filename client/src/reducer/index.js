@@ -60,7 +60,7 @@ function rootReducer(state = initialState, action){
         case 'FILTER_BY_TEMP':
             const allRazes = state.allRazes 
             const razesFiltered=allRazes.filter(el => el.temperaments?.includes(action.payload)) 
-            //console.log(razesFiltered)
+            
             return{
                 ...state,
                 razes: razesFiltered

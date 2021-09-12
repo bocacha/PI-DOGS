@@ -125,7 +125,7 @@ export default function Home(){
 
                 <select className={style.order} onChange={e =>{handleFilterCreated(e)}}>
                     <option value="">Source...</option>
-                    <option value="created">You own!</option>
+                    <option value="created">Your own!</option>
                     <option value="api">Api dogs</option>
                     <option value="all">All of them</option>    
                 </select> 
@@ -140,7 +140,7 @@ export default function Home(){
                         <div className={style.cardsContainer} key={el.id}>
                             <Link to={`/razes/${el.id}`  }className={style.link}>
                                 <Card name={el.name} image={el.image}height={el.height} life={el.life} weight={el.weight} temperaments=
-                                {el.createdInDb?el.temperamentos.map(e => e.name):el.temperaments + ", "} />
+                                {el.createdInDb?el.temperamentos.map(e => e.name + ", "):el.temperaments + ", "} />
                             </Link>
                         </div>
                     );                

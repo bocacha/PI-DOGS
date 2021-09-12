@@ -38,7 +38,6 @@ export function getRazesName(name){
 export function getRazesId(id){
     return async function(dispatch){
         try{
-            //var json = await axios.get('http://localhost:3001/razes/' + id);
             var json = await axios.get(`http://localhost:3001/razes/${id}`);
             return dispatch({
                 type:'GET_RAZES_ID', 

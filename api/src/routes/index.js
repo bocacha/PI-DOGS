@@ -49,7 +49,6 @@ const getAllRazes = async () => {
 
 router.get('/razes', async (req, res) => {
     const {name} = req.query;
-    //const name = req.query.name;
     let razesTotal = await getAllRazes();
     if(name){
         let razeName = await razesTotal.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))
@@ -70,7 +69,6 @@ router.get("/temperament", async (req, res) => {
   temperaments = temperaments.map(t => t.trim());
   temperaments = temperaments.filter(t => t);
   temperaments = [...new Set(temperaments)].sort();
-  // temperaments = await temperaments.split(regExp);
   temperaments.forEach((ob) => {
     Temperamento.findOrCreate({
       where: { name: ob },
@@ -79,35 +77,16 @@ router.get("/temperament", async (req, res) => {
   const allTemperaments = await Temperamento.findAll();
   res.send(allTemperaments);
 });
-// router.get("/temperament", async (req, res) => {
-//     const temperamentApi = await axios.get(
-//       `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
-//     );
-//     let temperaments = temperamentApi.data.map((ob) => ob.temperament).toString();
-//     const regExp= /\s*,\s*/;
-//     temperaments = await temperaments.split(regExp);
-//     temperaments.forEach((ob) => {
-//       Temperamento.findOrCreate({
-//         where: { name: ob },
-//       });
-//     });
-//     const allTemperaments = await Temperamento.findAll();
-//     res.send(allTemperaments);
-// });
+
 
 router.post("/razes", async (req, res) => {
   let { name,weight,height,life,image,temperament,createdInDb,} = req.body
     
   try {
     let razeCreated = await Raza.create({name,weight,height,life,image,createdInDb,});     
-    // const razeTemperaments = await Temperamento.findAll({
-    //   were:{
-    //     id:temperamentId
-    //   }
-    // })
+   
     await razeCreated.addTemperamento(temperament)
-    //console.log(razeTemperaments);
-    //return res.status(201).json(razeCreated);
+    
     res.send('Raze created!')
   } catch (error) {
     console.log(error)
@@ -118,7 +97,6 @@ router.post("/razes", async (req, res) => {
 
 
 router.get('/razes/:id', async (req, res) =>{
-    //const id = parseInt(req.params.id);
     const id = req.params.id;
     const razesTotal = await getAllRazes()
     if(id){

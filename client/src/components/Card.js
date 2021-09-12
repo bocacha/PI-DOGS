@@ -6,9 +6,9 @@ export default function Card({name,image,weight,temperaments}){
     return (
         <div className={style.card}>
             <h3>{name}</h3>
-            <img src={image} alt="Img not found" width="240" height="180"  />
+            <img className={style.picture} src={image} alt="Img not found" width="240" height="180"  />
             <h4>{weight} Kgs.</h4>
-            <h4>{temperaments}</h4>
+            <h5 className={style.description}>{temperaments}</h5>
            
         </div>
     )

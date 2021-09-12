@@ -29,7 +29,7 @@ import style from './details.module.css';
           <div className={style.header}>          
             <h1>{details[0].name}</h1>
             <img src={details[0].image} className={style.imagen} width="400" height="300" alt="Img not found"/>
-            <h2 className={style.text_white}>{!details[0].createdInDb ? details[0].temperaments + ' ' : details[0].temperamentos.map(e=> e.name + (','))} </h2>
+            <h2 className={style.text_white}>{!details[0].createdInDb ? details[0].temperaments + ', ' : details[0].temperamentos.map(e=> e.name + (', '))} </h2>
           </div>
 
           <div className={style.description}>
@@ -37,9 +37,9 @@ import style from './details.module.css';
 
             <hr />
 
-            <h2 className={style.text_white}>Height:{details[0].height} Cm.</h2>
-            <h2 className={style.text_white}>Weight: {details[0].weight} Kgs.</h2>
-            <h2 className={style.text_white}>Life span: {details[0].life} </h2>
+            <h3 className={style.text_white}>Height: {details[0].height} Cm.</h3>
+            <h3 className={style.text_white}>Weight: {details[0].weight} Kgs.</h3>
+            <h3 className={style.text_white}>Life: {details[0].life} </h3>
             <div className={style.areaBoton}>
               <Link className={style.order} to='/home'>Go Back!</Link>
             </div>
@@ -47,7 +47,7 @@ import style from './details.module.css';
           </div>
 
         </div>
-      </div>: <p>Loading...</p>
+      </div>: <p><img src='https://dribbble.com/shots/5310753-Loading-Dog'/></p>
     }
     </div>
   

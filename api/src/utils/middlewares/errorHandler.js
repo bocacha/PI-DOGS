@@ -1,4 +1,4 @@
-function errorHandler(err, req, res, next)  { // eslint-disable-line no-unused-vars
+function errorHandler(err, _req, res, _next)  { // eslint-disable-line no-unused-vars
     const status = err.status || 500;
     const message = err.message || err;
     console.error(err);
