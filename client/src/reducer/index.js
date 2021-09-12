@@ -1,4 +1,4 @@
-//import {GET_RAZA_DETAIL, GET_RAZA_ALL, GET_RAZA, GET_TEMPERAMENTO, SORT_RAZA} from '../actions/index'
+
 
 const initialState = { 
     razes : [],

@@ -49,10 +49,11 @@ function Form() {
   
 
   async function handleSubmit(event) { 
-    // if(errors.name !== ""){
-    //   document.getElementById('form').reset();
-    //   return alert('You have been warned, but attemp to create anyway. Now form will reset!');
-    // }
+    alert(errors.name)
+    if(errors.name !== undefined){
+      document.getElementById('form').reset();
+      return alert('You have been warned, but attemp to create anyway. Now form will reset!');
+    }
     const myModel={ 
       name:input.name,
       height: input.height_min + " - " + input.height_max,
