@@ -27,4 +27,9 @@ describe('Razes routes', () => {
       agent.get('/razes').expect(200)
     );
   });
+  describe('GET /temperament', () => {
+    it('should get 200', () =>
+      agent.get('/temperament').expect(200)
+    );
+  });
 });

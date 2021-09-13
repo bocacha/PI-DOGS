@@ -49,7 +49,6 @@ function Form() {
   
 
   async function handleSubmit(event) { 
-    alert(errors.name)
     if(errors.name !== undefined){
       document.getElementById('form').reset();
       return alert('You have been warned, but attemp to create anyway. Now form will reset!');

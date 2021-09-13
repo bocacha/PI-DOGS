@@ -4,21 +4,17 @@ import {Link} from 'react-router-dom';
 import {getRazesId} from '../../actions/';
 import style from './details.module.css';
 
-
-
-
  function Details(props) {
   
   const dispatch = useDispatch();
-
   const id = props.match.params.id;
-  console.log(id);
-  
+   
   useEffect(()=>{
     dispatch(getRazesId(id));
   },[dispatch,id]);
 
   const details = useSelector((state) => state.razasDetail);
+
   return (
     
     <div className={style.wc}>
@@ -47,7 +43,7 @@ import style from './details.module.css';
           </div>
 
         </div>
-      </div>: <p><img src='https://dribbble.com/shots/5310753-Loading-Dog'/></p>
+      </div>: <p><img src='https://dribbble.com/shots/5310753-Loading-Dog' alt="Img not found!"/></p>
     }
     </div>
   

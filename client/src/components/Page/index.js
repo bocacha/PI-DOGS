@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import styles from './page.module.css';
 import dog from '../../images/dog.png'
 
+
+
 export function Page() {
   return (
     <header>
