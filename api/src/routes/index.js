@@ -9,7 +9,6 @@ const setHeaders = require('../utils/middlewares/setHeaders');
 
 const router = Router();
 router.use(setHeaders);
-//router.use('/api', routes);
 router.use(errorHandler);
 
 const getApiInfo = async () =>{

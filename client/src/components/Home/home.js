@@ -67,12 +67,14 @@ export default function Home(){
     const [input,setInput]=useState({
         raza:" ",
     });
+    //Carga de inputs
     function handleInput(e){
         setInput({
             ...input,
             [e.target.name]: e.target.value           
         })
     }    
+    //Busqueda por Raza
     function handleDispatch(e){
         e.preventDefault();
         if(input.raza){

@@ -43,7 +43,7 @@ import style from './details.module.css';
           </div>
 
         </div>
-      </div>: <p><img src='https://dribbble.com/shots/5310753-Loading-Dog' alt="Img not found!"/></p>
+      </div>: <p>LOADING!</p>
     }
     </div>
   
