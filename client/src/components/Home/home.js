@@ -38,6 +38,7 @@ export default function Home(){
     function handleClick(e){
         e.preventDefault();
         dispatch(getRazes());
+        
     }
     //Filtro ASC / DES
     function handleSort(e){
