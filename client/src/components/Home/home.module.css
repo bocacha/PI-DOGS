@@ -1,6 +1,7 @@
 
 .body{
     overflow: hidden;
+    
 }
 .container{
     display: grid;
@@ -12,6 +13,7 @@
 .text{
     font-family: 'Open Sans', sans-serif;
     text-align: center;
+    
 }
 .areaSearch{
     margin-top:10px;
@@ -41,6 +43,10 @@
 }
 .cardsContainer{
     display:flex;
+    text-decoration: none;
+}
+a{
+    text-decoration: none;
 }
 .order{
     border: 3px solid rgb(231, 152, 48);

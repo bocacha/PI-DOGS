@@ -14,6 +14,7 @@ export default function Home(){
 
     const dispatch = useDispatch();
     const allRazes = useSelector((state) => state.razes);
+    const allRazes2 = useSelector((state) => state.allRazes);
     const allTemperaments = useSelector((state) =>state.temperaments);
     
     // eslint-disable-next-line
@@ -29,7 +30,7 @@ export default function Home(){
         setCurrentPage(pageNumber);
     }
 
-    useEffect (() =>{
+    useEffect (() =>{        
         dispatch(getRazes());
         dispatch(getTemperaments());
     },[dispatch]);
@@ -65,6 +66,7 @@ export default function Home(){
         dispatch(filterCreated(e.target.value))
     }
     //Busqueda por nombre
+    
     const [input,setInput]=useState({
         raza:" ",
     });
@@ -79,12 +81,14 @@ export default function Home(){
     function handleDispatch(e){
         e.preventDefault();
         if(input.raza){
-            dispatch(getRazesName(input.raza))
-            document.getElementById('form').reset();
+            dispatch(getRazesName(input.raza));
+            //setInput("");
+            //document.getElementById('form').reset();
         }else{
-            alert("Raze name is mandatory!")
+            alert("Raze name is mandatory!");
+            //setInput("");
         }
-        setInput("");
+        
     }
     
 

@@ -66,8 +66,8 @@ function rootReducer(state = initialState, action){
                 razes: razesFiltered
             }
         case 'FILTER_CREATED':
-            const allRazes2 = state.allRazes
-            const createdFilter = action.payload ==='created'? allRazes2.filter(el =>el.createdInDb): allRazes2.filter(el =>!el.createdInDb)
+            const allRazes2 = state.allRazes            
+            const createdFilter = action.payload ==='created'? allRazes2.filter(el =>el.createdInDb): allRazes2.filter(el =>!el.createdInDb)            
             return{
                 ...state,
                 razes: createdFilter
