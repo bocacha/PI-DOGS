@@ -12,7 +12,7 @@ You can also create your own Dog/Raze! Just be sure to have your image ready to 
 
 ### Technical Description:
 
-Dogs Parade was build developing a Server in Express, wich mount and configure a Data base through Sequelize. The stored data is then renderized on the Client side of Dogs Parade making use of React to build the necessary functional components; Redux to set your data ready in your components Global State, and CSS Styled components to bring you a pleasant view.
+Dogs Parade was build developing a Server in Express, wich mount and configure a Data base through Sequelize. The stored data is then renderized on the Client side of Dogs Parade making use of React to build the necessary functional components; Then use Redux to set your data ready in your components Global State, and CSS Styled components to bring you a pleasant view.
 
 
 ### API Data Management:

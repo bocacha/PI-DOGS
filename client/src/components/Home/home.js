@@ -83,7 +83,7 @@ export default function Home(){
         if(input.raza){
             dispatch(getRazesName(input.raza));
             //setInput("");
-            //document.getElementById('form').reset();
+            document.getElementById('form').reset();
         }else{
             alert("Raze name is mandatory!");
             //setInput("");
