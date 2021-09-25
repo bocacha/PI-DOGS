@@ -27,6 +27,7 @@ const { conn } = require('./src/db.js');
 conn.sync({ force: false}).then(() => { // true:borra la bd y la crea de nuevo
   console.log('Base de datos conectada!');
   server.listen(process.env.PORT || 3001, () => {
-    console.log(`SERVER listening at port:${PORT}`);
+    // console.log(`SERVER listening at port:${PORT}`);
+    console.log(`SERVER listening at port:3001`);
   });
 });
