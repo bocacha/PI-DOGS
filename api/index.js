@@ -21,12 +21,12 @@
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 
-const PORT = 3001;
+//const PORT = 3001;
 
 
-conn.sync({ force: true}).then(() => { // true:borra la bd y la crea de nuevo
+conn.sync({ force: false}).then(() => { // true:borra la bd y la crea de nuevo
   console.log('Base de datos conectada!');
-  server.listen(PORT, () => {
+  server.listen(process.env.PORT, () => {
     console.log(`SERVER listening at port:${PORT}`);
   });
 });
