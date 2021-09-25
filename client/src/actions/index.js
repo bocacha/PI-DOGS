@@ -2,7 +2,8 @@ import axios from 'axios';
 
 export function getRazes (){
     return async function(dispatch){
-        var json = await axios.get(`http://localhost:3001/razes`,{
+        // var json = await axios.get(`http://localhost:3001/razes`,{
+        var json = await axios.get(`/razes`,{
         });
         return dispatch({
             type:'GET_RAZES', 
@@ -12,7 +13,8 @@ export function getRazes (){
 }
 export function getTemperaments (){
     return async function(dispatch){
-        var json = await axios.get(`http://localhost:3001/temperament`,{
+        // var json = await axios.get(`http://localhost:3001/temperament`,{
+        var json = await axios.get(`/temperament`,{
         });
         return dispatch({
             type:'GET_TEMPERAMENTS', 
@@ -24,7 +26,8 @@ export function getTemperaments (){
 export function getRazesName(name){
     return async function(dispatch){
         try{
-            var json = await axios.get('http://localhost:3001/razes?name='+ name);
+            // var json = await axios.get('http://localhost:3001/razes?name='+ name);
+            var json = await axios.get('/razes?name='+ name);
             return dispatch({
                 type:'GET_RAZES_NAME', 
                 payload: json.data
@@ -38,7 +41,8 @@ export function getRazesName(name){
 export function getRazesId(id){
     return async function(dispatch){
         try{
-            var json = await axios.get(`http://localhost:3001/razes/${id}`);
+            // var json = await axios.get(`http://localhost:3001/razes/${id}`);
+            var json = await axios.get(`/razes/${id}`);
             return dispatch({
                 type:'GET_RAZES_ID', 
                 payload: json.data
@@ -79,7 +83,8 @@ export function filterWeigth(payload){
 
 export function postRaze(payload){
     return async function(){
-        var json = await axios.post('http://localhost:3001/razes',payload);
+        // var json = await axios.post('http://localhost:3001/razes',payload);
+        var json = await axios.post('/razes',payload);
         return json;
     }
 }
