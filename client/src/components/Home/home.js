@@ -14,6 +14,7 @@ export default function Home(){
 
     const dispatch = useDispatch();
     const allRazes = useSelector((state) => state.razes);
+    // eslint-disable-next-line
     const allRazes2 = useSelector((state) => state.allRazes);
     const allTemperaments = useSelector((state) =>state.temperaments);
     
@@ -83,7 +84,7 @@ export default function Home(){
         if(input.raza){
             dispatch(getRazesName(input.raza));
             //setInput("");
-            document.getElementById('form').reset();
+            //document.getElementById('form').reset();
         }else{
             alert("Raze name is mandatory!");
             //setInput("");
